@@ -123,9 +123,9 @@ decl_module! {
         pub fn transfer_clain(origin,proof:Vec<u8>,dest:T::AccountId)->dispatch::DispatchResult{
             let sender=ensure_signed(origin);
 
-            ensure!(Proofs::<T>::contains_key(&claim),Error::<T>::ClaimNotExist);
+            ensure!(Proofs::<T>::contains_key(&proof),Error::<T>::ClaimNotExist);
 
-            let(owner,_block_number)=Proofs::<T>::get(&claim);
+            let(owner,_block_number)=Proofs::<T>::get(&proof);
 
             ensure!(owner==sender,Error::<T>::NotClaimOwner);
 
