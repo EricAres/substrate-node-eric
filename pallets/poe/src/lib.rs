@@ -56,6 +56,8 @@ decl_error! {
         NoSuchProof,
         /// The proof is claimed by another account, so caller can't revoke it.
         NotProofOwner,
+        ClaimNotExist,
+        NotClaimOwner,
     }
 }
 
@@ -127,7 +129,7 @@ decl_module! {
 
             let(owner,_block_number)=Proofs::<T>::get(&proof);
 
-            ensure!(owner==sender,Error::<T>::NotClaimOwner);
+            ensure!(owner == sender,Error::<T>::NotClaimOwner);
 
             Proofs::<T>::insert(&proof,(dest,frame_system::Module::<T>::block_number()));
 
