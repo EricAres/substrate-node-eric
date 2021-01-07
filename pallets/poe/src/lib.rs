@@ -117,7 +117,21 @@ decl_module! {
 
             // Emit an event that the claim was erased.
             Self::deposit_event(RawEvent::ClaimRevoked(sender, proof));
-            Ok(());
+        }
+
+        #[weight = 0]
+        pub fn transfer_clain(origin,proof:Vec<u8>,dest:T::AccountId)->dispatch::DispatchResult{
+            let sender=ensure_signed(origin);
+
+            ensure!(Proofs::<T>::contains_key(&claim),Error::<T>::ClaimNotExist);
+
+            let(owner,_block_number)=Proofs::<T>::get(&claim);
+
+            ensure!(owner==sender,Error::<T>::NotClaimOwner);
+
+            Proofs::<T>::insert(&proof,(dest,frame_system::Module::<T>::block_number()));
+
+            Ok(())
         }
     }
 }
