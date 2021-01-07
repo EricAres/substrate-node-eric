@@ -129,7 +129,7 @@ decl_module! {
 
             let(owner,_block_number)=Proofs::<T>::get(&proof);
 
-            ensure!(owner == sender,Error::<T>::NotClaimOwner);
+            ensure!(sender == owner, Error::<T>::NotClaimOwner);
 
             Proofs::<T>::insert(&proof,(dest,frame_system::Module::<T>::block_number()));
 
