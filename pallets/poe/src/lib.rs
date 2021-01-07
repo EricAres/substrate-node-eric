@@ -117,6 +117,7 @@ decl_module! {
 
             // Emit an event that the claim was erased.
             Self::deposit_event(RawEvent::ClaimRevoked(sender, proof));
+            Ok(());
         }
     }
 }
