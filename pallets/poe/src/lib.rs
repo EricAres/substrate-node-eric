@@ -56,9 +56,7 @@ decl_error! {
         NoSuchProof,
         /// The proof is claimed by another account, so caller can't revoke it.
         NotProofOwner,
-        ClaimNotExist,
-        NotClaimOwner,
-    }
+     }
 }
 
 
@@ -125,11 +123,11 @@ decl_module! {
         pub fn transfer_clain(origin,proof:Vec<u8>,dest:T::AccountId)->dispatch::DispatchResult{
             let sender=ensure_signed(origin);
 
-            ensure!(Proofs::<T>::contains_key(&proof),Error::<T>::ClaimNotExist);
+            ensure!(Proofs::<T>::contains_key(&proof),Error::<T>::NoSuchProof);
 
             let(owner,_block_number)=Proofs::<T>::get(&proof);
 
-            ensure!(sender == owner, Error::<T>::NotClaimOwner);
+            ensure!(owner == sender, Error::<T>::NotProofOwner);
 
             Proofs::<T>::insert(&proof,(dest,frame_system::Module::<T>::block_number()));
 
