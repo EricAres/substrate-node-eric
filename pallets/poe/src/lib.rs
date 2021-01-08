@@ -48,6 +48,7 @@ decl_error! {
 		ProofAlreadyExist,
 		ClaimNotExist,
 		NotClaimOwner,
+		LengthLimitOut,
 	}
 }
 
@@ -66,6 +67,7 @@ decl_module! {
 
 		#[weight = 0]
 		pub fn create_claim(origin, claim: Vec<u8>) -> DispatchResult {
+			
 			let sender = ensure_signed(origin)?;
 
 			ensure!(!Proofs::<T>::contains_key(&claim), Error::<T>::ProofAlreadyExist);
