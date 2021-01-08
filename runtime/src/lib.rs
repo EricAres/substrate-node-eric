@@ -246,6 +246,7 @@ impl pallet_balances::Trait for Runtime {
 
 parameter_types! {
 	pub const TransactionByteFee: Balance = 1;
+	pub const MaxproofLength:u8=8;
 }
 
 impl pallet_transaction_payment::Trait for Runtime {
@@ -264,6 +265,7 @@ impl pallet_sudo::Trait for Runtime {
 /// Configure the template pallet in pallets/template.
 impl pallet_template::Trait for Runtime {
 	type Event = Event;
+	type MaxProofLength=MaxproofLength;
 }
 
 // Create the runtime by composing the FRAME pallets that were previously configured.
