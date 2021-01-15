@@ -176,7 +176,7 @@ impl frame_system::Trait for Runtime {
 	type MaximumBlockLength = MaximumBlockLength;
 	/// Portion of the block weight that is available to all normal transactions.
 	type AvailableBlockRatio = AvailableBlockRatio;
-	/// Version of the runtime.
+	/// Version of the runtime.`
 	type Version = Version;
 	/// Converts a module to the index of the module in `construct_runtime!`.
 	///
@@ -236,7 +236,7 @@ impl pallet_balances::Trait for Runtime {
 	type MaxLocks = MaxLocks;
 	/// The type for recording an account's balance.
 	type Balance = Balance;
-	/// The ubiquitous event type.
+	/// The ubiquitous event type
 	type Event = Event;
 	type DustRemoval = ();
 	type ExistentialDeposit = ExistentialDeposit;
@@ -246,7 +246,7 @@ impl pallet_balances::Trait for Runtime {
 
 parameter_types! {
 	pub const TransactionByteFee: Balance = 1;
-	pub const MaxproofLength:u8=8;
+	// pub const MaxproofLength:u8=8;
 }
 
 impl pallet_transaction_payment::Trait for Runtime {
@@ -265,7 +265,7 @@ impl pallet_sudo::Trait for Runtime {
 /// Configure the template pallet in pallets/template.
 impl pallet_template::Trait for Runtime {
 	type Event = Event;
-	type MaxProofLength=MaxproofLength;
+	// type MaxproofLength=MaxproofLength;
 }
 
 // Create the runtime by composing the FRAME pallets that were previously configured.
