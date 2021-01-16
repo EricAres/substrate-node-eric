@@ -40,7 +40,9 @@ pub use frame_support::{
 
 /// Import the template pallet.
 pub use pallet_template;
+pub use pallet_kitties;
 
+//此处测试通过后，需要做一下，去掉pub看是否好使，因为kitties并没有提供给其它模块使用
 /// An index to a block.
 pub type BlockNumber = u32;
 
@@ -268,6 +270,17 @@ impl pallet_template::Trait for Runtime {
 	// type MaxproofLength=MaxproofLength;
 }
 
+/// Configure the template pallet in pallets/kitties.kitties
+parameter_types! {
+	pub const LockAmount: u64 = 5_000;
+}
+impl pallet_kitties::Trait for Runtime {
+	type Event = Event;
+	type Randomness = RandomnessCollectiveFlip;
+	type KittyIndex = u32;
+	type Currency = Balances;
+	type LockAmount = LockAmount;
+}
 // Create the runtime by composing the FRAME pallets that were previously configured.
 construct_runtime!(
 	pub enum Runtime where
@@ -285,6 +298,8 @@ construct_runtime!(
 		Sudo: pallet_sudo::{Module, Call, Config<T>, Storage, Event<T>},
 		// Include the custom logic from the template pallet in the runtime.
 		TemplateModule: pallet_template::{Module, Call, Storage, Event<T>},
+		KittiesModule: pallet_kitties::{Module, Call, Storage, Event<T>},
+
 	}
 );
 
