@@ -98,7 +98,6 @@ decl_storage! {
 // https://substrate.dev/docs/en/knowledgebase/runtime/events
 decl_event! {
 
-    // 这里的KittyIndex = <T as Trait>::KittyIndex的语法是什么写法？
     pub enum Event<T> where AccountId = <T as frame_system::Trait>::AccountId,KittyIndex = <T as Trait>::KittyIndex {
 		//
     	Created(AccountId, KittyIndex),

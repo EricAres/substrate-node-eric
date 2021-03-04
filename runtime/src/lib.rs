@@ -41,6 +41,8 @@ pub use frame_support::{
 /// Import the template pallet.
 pub use pallet_template;
 pub use pallet_kitties;
+pub use pallet_poe;
+
 
 //此处测试通过后，需要做一下，去掉pub看是否好使，因为kitties并没有提供给其它模块使用
 /// An index to a block.
@@ -132,8 +134,14 @@ parameter_types! {
 	pub const MaximumBlockLength: u32 = 5 * 1024 * 1024;
 	pub const Version: RuntimeVersion = VERSION;
 }
-
+parameter_types! {
+	pub const MaxClaimLength: u32 = 6;
+}
 // Configure FRAME pallets to include in runtime.
+impl pallet_poe::Trait for Runtime{
+	type Event =Event;
+	type MaxClaimLength =MaxClaimLength;
+}
 
 impl frame_system::Trait for Runtime {
 	/// The basic call filter to use in dispatchable.
@@ -299,6 +307,7 @@ construct_runtime!(
 		// Include the custom logic from the template pallet in the runtime.
 		TemplateModule: pallet_template::{Module, Call, Storage, Event<T>},
 		KittiesModule: pallet_kitties::{Module, Call, Storage, Event<T>},
+		PoeModule: pallet_poe::{Module, Call, Storage, Event<T>},
 
 	}
 );

@@ -27,7 +27,10 @@ serde = { features = ['derive'], optional = true, version = '1.0.101' }
 # local dependencies
 pallet-template = { path = '../pallets/template', default-features = false, version = '2.0.0' }
 pallet-kitties = { path = '../pallets/kitties', default-features = false, version = '2.0.0' }
+pallet-poe = { path = '../pallets/poe', default-features = false , version = '2.0.0' }
+
 #//注册kitties进来，确保版本一致。
+# local dependencies
 
 # Substrate dependencies
 frame-benchmarking = { default-features = false, optional = true, version = '2.0.0' }
@@ -95,4 +98,6 @@ std = [
     'sp-std/std',
     'sp-transaction-pool/std',
     'sp-version/std',
+    'pallet-poe/std',
+    'pallet-kitties/std',
 ]

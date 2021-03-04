@@ -25,6 +25,8 @@ mod tests;
 pub trait Trait: system::Trait {
 	/// The overarching event type.
 	type Event: From<Event<Self>> + Into<<Self as system::Trait>::Event>;
+	// setMax Length limit
+	type MaxClaimLength: frame_support::traits::Get<u32>;
 }
 
 // This pallet's storage items.
@@ -61,9 +63,10 @@ decl_module! {
 		// it is needed only if you are using errors in your pallet
 		type Error = Error<T>;
 
-		// Initializing events
+ 		// Initializing events
 		// this is needed only if you are using events in your pallet
 		fn deposit_event() = default;
+
 
 		#[weight = 0]
 		pub fn create_claim(origin, claim: Vec<u8>) -> DispatchResult {
@@ -71,7 +74,9 @@ decl_module! {
 			let sender = ensure_signed(origin)?;
 
 			ensure!(!Proofs::<T>::contains_key(&claim), Error::<T>::ProofAlreadyExist);
-			
+			//lenth limit
+			// ensure!( T::MaxClaimLength::get() >= claim.len() as u32, Error::<T>::LengthLimitOut);
+			// ensure!( T::MaxClaimLength::get() >= claim.len() as u32, Error::<T>::LengthLimitOut);
 			Proofs::<T>::insert(&claim, (sender.clone(), system::Module::<T>::block_number()));
 
 			Self::deposit_event(RawEvent::ClaimCreated(sender, claim));
